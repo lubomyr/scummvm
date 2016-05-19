@@ -357,7 +357,7 @@ void OSystem_Android::pushEvent(int type, int arg1, int arg2, int arg3,
 		switch (arg2) {
 
 		// special case. we'll only get it's up event
-		case JKEYCODE_BACK:
+		case JKEYCODE_MENU:
 			e.kbd.keycode = Common::KEYCODE_ESCAPE;
 			e.kbd.ascii = Common::ASCII_ESCAPE;
 
@@ -371,7 +371,7 @@ void OSystem_Android::pushEvent(int type, int arg1, int arg2, int arg3,
 			return;
 
 		// special case. we'll only get it's up event
-		case JKEYCODE_MENU:
+		case JKEYCODE_BACK:
 			e.type = Common::EVENT_MAINMENU;
 
 			lockMutex(_event_queue_lock);

@@ -72,12 +72,12 @@ public class ScummVMEvents implements
 		return false;
 	}
 
-	final static int MSG_MENU_LONG_PRESS = 1;
+	final static int MSG_BACK_LONG_PRESS = 1;
 
 	final private Handler keyHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			if (msg.what == MSG_MENU_LONG_PRESS) {
+			if (msg.what == MSG_BACK_LONG_PRESS) {
 				InputMethodManager imm = (InputMethodManager)
 					_context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -97,7 +97,7 @@ public class ScummVMEvents implements
 			return false;
 		}
 
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
 			if (action != KeyEvent.ACTION_UP) {
 				// only send event from back button on up event, since down event is sent on right mouse click and
 				// cannot be caught (thus rmb click would send escape key first)
@@ -133,15 +133,15 @@ public class ScummVMEvents implements
 			// ourselves, since we are otherwise hijacking the menu key :(
 			// See com.android.internal.policy.impl.PhoneWindow.onKeyDownPanel()
 			// for the usual Android implementation of this feature.
-			if (keyCode == KeyEvent.KEYCODE_MENU) {
+			if (keyCode == KeyEvent.KEYCODE_BACK) {
 				final boolean fired =
-					!keyHandler.hasMessages(MSG_MENU_LONG_PRESS);
+					!keyHandler.hasMessages(MSG_BACK_LONG_PRESS);
 
-				keyHandler.removeMessages(MSG_MENU_LONG_PRESS);
+				keyHandler.removeMessages(MSG_BACK_LONG_PRESS);
 
 				if (action == KeyEvent.ACTION_DOWN) {
 					keyHandler.sendMessageDelayed(keyHandler.obtainMessage(
-									MSG_MENU_LONG_PRESS), _longPress);
+									MSG_BACK_LONG_PRESS), _longPress);
 					return true;
 				}
 
